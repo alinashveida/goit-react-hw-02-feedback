@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { Container } from './App.styled'
 
 import Statistics from '../Statistics/Statistics'
 import FeedbackOptions from '../FeedbackOptions/FeedbackOptions'
@@ -14,8 +15,8 @@ export default class App extends Component {
 
   countTotalFeedback() {
     const { good, neutral, bad } = this.state
-    const total = good + neutral + bad
-    return total
+    return (good + neutral + bad)
+
   }
 
   countPositiveFeedbackPercentage() {
@@ -28,14 +29,14 @@ export default class App extends Component {
   onLeaveFeedbackButton = (event) => {
     const target = event.target
     this.setState({
-      [target.name]:this.state.[target.name] +1,
+      [target.name]: this.state.[target.name] + 1,
     })
   }
 
   render() {
     const { good, neutral, bad } = this.state
     return (
-      <>
+      <Container>
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={Object.keys(this.state)}
@@ -46,17 +47,17 @@ export default class App extends Component {
         <Section title="Statistics">
           {this.countTotalFeedback() > 0 ? (
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
+              good= {good}
+              neutral= {neutral}
+              bad= {bad}
+              total= {this.countTotalFeedback()}
+              positivePercentage= {this.countPositiveFeedbackPercentage()}
             />
           ) : (
             <Notification message="No feedback given" />
           )}
         </Section>
-      </>
+      </Container>
     )
   }
 }
